@@ -19,7 +19,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch){
-
+                        ch.pipeline().addLast(new SomeClientHandler());
                     }
                 });
         connect(bootstrap);
@@ -27,7 +27,7 @@ public class NettyClient {
 
     private static void connect(Bootstrap bootstrap){
         //连接远程服务器
-        bootstrap.connect("127.0.0.1",8000).addListener(future ->{
+        bootstrap.connect("127.0.0.1",1000).addListener(future ->{
             if(future.isSuccess()){
                 System.out.println("连接成功");
             }else {

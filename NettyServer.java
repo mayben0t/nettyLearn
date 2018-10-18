@@ -17,7 +17,8 @@ public class NettyServer {
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch){
-
+                            //指定连接数据读写逻辑
+                        ch.pipeline().addLast(new FirstServerHandler());
                     }
                 });
       bind(serverBootstrap,1000);
